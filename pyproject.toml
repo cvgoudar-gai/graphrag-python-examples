@@ -1,0 +1,34 @@
+[project]
+name = "graphrag-python-examples"
+version = "0.1.0"
+description = "GraphRAG Python package examples with Lupus research papers"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "fsspec",
+    "langchain-text-splitters",
+    "tiktoken",
+    "openai",
+    "python-dotenv",
+    "numpy",
+    "torch",
+    "neo4j-graphrag",
+    "neo4j",
+    "jupyter",
+    "ipykernel",
+    "gradio>=4.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "black",
+    "isort",
+]
+
+[tool.uv]
+dev-dependencies = [
+    "pytest",
+    "black",
+    "isort",
+]
