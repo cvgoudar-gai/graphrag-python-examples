@@ -1,46 +1,30 @@
 import gradio as gr
 from graphrag_core import GraphRAGApp
+import os
+
+def load_css():
+    """Load CSS from external file"""
+    css_file_path = os.path.join(os.path.dirname(__file__), 'styles.css')
+    try:
+        with open(css_file_path, 'r', encoding='utf-8') as f:
+            css_content = f.read()
+        return f"<style>\n{css_content}\n</style>"
+    except FileNotFoundError:
+        # Fallback CSS if file not found
+        return """
+        <style>
+        .gradio-container {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
+        }
+        </style>
+        """
 
 def create_gradio_interface():
     """Create and return the Gradio interface"""
     app = GraphRAGApp()
     
-    # Custom CSS for ChatGPT-like styling
-    custom_css = """
-    <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-    
-    .gradio-container {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
-        font-weight: 400;
-        line-height: 1.6;
-    }
-    
-    .gradio-container h1, .gradio-container h2, .gradio-container h3 {
-        font-weight: 600;
-        color: #1a1a1a;
-    }
-    
-    .gradio-container p, .gradio-container div {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
-    }
-    
-    .gradio-container input, .gradio-container textarea, .gradio-container select {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
-        font-size: 14px;
-    }
-    
-    .gradio-container button {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
-        font-weight: 500;
-    }
-    
-    .gradio-container .markdown {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
-        line-height: 1.6;
-    }
-    </style>
-    """
+    # Load custom CSS from external file
+    custom_css = load_css()
     
     with gr.Blocks(title="GraphRAG Lupus Research Assistant", theme=gr.themes.Soft(), css=custom_css) as interface:
         gr.Markdown("# 🧬 GraphRAG Q&A Assistant")
